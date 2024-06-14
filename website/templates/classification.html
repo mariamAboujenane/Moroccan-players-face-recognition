@@ -1,0 +1,18 @@
+{% include 'header1.html' %}
+
+{% set lbp_histogram_variable = lbp_histogram %}
+{% include 'bar.html' %}
+<div class="center-horizontal">
+<div class="container mt-5">
+    <p class="dete">Classification Result</p>
+
+    <p class="classify">{{ predicted_class|replace('-detected-histograms', '') }}</p>
+
+    </div>
+</div>
+</div>
+
+    <!-- Add any other elements or styling you need -->
+</div>
+
+{% include 'footer.html' %}

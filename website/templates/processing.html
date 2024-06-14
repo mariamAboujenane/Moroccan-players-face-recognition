@@ -1,0 +1,14 @@
+{% include 'header1.html' %}
+{% include 'bar.html' %}
+
+{% if saved_file_url %}
+<div class="center-horizontal">
+    <p class="dete">Detected face</p>
+    <img src="{{ saved_file_url }}" class='detected' alt="Processed Image">
+    <br>
+    <!-- Assuming processed_file_url is the variable containing the URL -->
+    <a class='predict' href="{{ url_for('extraction', saved_file_url=saved_file_url) }}">Extract the features</a>
+</div>
+{% else %}
+    <p>No image uploaded yet.</p>
+{% endif %}

@@ -1,0 +1,14 @@
+
+{% include 'header1.html' %}
+
+{% include 'bar.html' %}
+<div class="center-horizontal">
+    <p class="dete">LBP Histogram</p>
+    <p>{{ image_path }}</p>
+    <img class="image" src="data:image/png;base64,{{ img_base64 }}" alt="LBP Histogram">
+
+</div>
+<div class="form-container">
+
+<a class='predict' href="{{ url_for('classification') }}">Recognize the face</a>
+</div>

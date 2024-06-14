@@ -1,0 +1,53 @@
+<div class="main">
+
+    <ul>
+        <a href="{{ url_for('enter_parameters') }}">
+
+            <li>
+
+                <i class="icon uil uil-capture"></i>
+                <div class="progress one">
+                    <p class="n">1</p>
+                    <i class="uil uil-check"></i>
+                </div>
+                <p class="text">Image Loading</p>
+            </li>
+        </a>
+        <a href="{{ url_for('processing') }}">
+
+            <li>
+                <i class="icon uil uil-clipboard-notes"></i>
+                <div class="progress two">
+                    <p class="n">2</p>
+                    <i class="uil uil-check"></i>
+                </div>
+                <p class="text">Face Detection</p>
+            </li>
+        </a>
+        <a href="{{ url_for('extraction') }}">
+
+            <li>
+                <i class="icon uil uil-credit-card"></i>
+                <div class="progress three">
+                    <p class="n">3</p>
+                    <i class="uil uil-check"></i>
+                </div>
+                <p class="text">LBP Feature Extraction</p>
+            </li>
+        </a>
+        <a href="{{ url_for('classification') }}">
+
+            <li>
+                <i class="icon uil uil-exchange"></i>
+                <div class="progress four">
+                    <p class="n">4</p>
+                    <i class="uil uil-check"></i>
+                </div>
+                <p class="text">Face Classification</p>
+            </li>
+        </a>
+    </ul>
+
+</div>
+
+<script src="main.js"></script>

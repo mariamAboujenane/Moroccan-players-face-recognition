@@ -1,0 +1,122 @@
+
+
+	{% include 'header1.html' %}
+
+	{% include 'bar.html' %}
+  <form id="file-upload-form" class="uploader" method="post" enctype="multipart/form-data" action="{{ url_for('processing') }}">
+    <input id="file-upload" type="file" name="fileUpload" accept="image/*" />
+    <label for="file-upload" id="file-drag">
+        <img id="file-image" src="#" alt="Preview" class="hidden">
+        <div id="start">
+            <i class="fa fa-download" aria-hidden="true"></i>
+            <div>Select an image or <b>drag</b> here</div>
+            <div id="notimage" class="hidden">Please select an image</div>
+            <span id="file-upload-btn" class="start-button">Select an image</span>
+        </div>
+        <div id="response" class="hidden">
+            <div id="messages"></div>
+        </div>
+    </label>
+    <div class="form-container">
+        <input type="submit" class="predict" value="Detect the face">
+    </div>
+</form>
+
+<script>
+    // File Upload
+    function ekUpload() {
+        function Init() {
+            var fileSelect = document.getElementById('file-upload'),
+                fileDrag = document.getElementById('file-drag'),
+                submitButton = document.getElementById('file-upload-btn');
+
+            fileSelect.addEventListener('change', fileSelectHandler, false);
+
+            var xhr = new XMLHttpRequest();
+            if (xhr.upload) {
+                fileDrag.addEventListener('dragover', fileDragHover, false);
+                fileDrag.addEventListener('dragleave', fileDragHover, false);
+                fileDrag.addEventListener('drop', fileSelectHandler, false);
+            }
+        }
+
+        function fileDragHover(e) {
+            var fileDrag = document.getElementById('file-drag');
+
+            e.stopPropagation();
+            e.preventDefault();
+
+            fileDrag.className = (e.type === 'dragover' ? 'hover' : 'modal-body file-upload');
+        }
+
+        function fileSelectHandler(e) {
+            var files = e.target.files || e.dataTransfer.files;
+
+            fileDragHover(e);
+
+            for (var i = 0, f; f = files[i]; i++) {
+                parseFile(f);
+                uploadFile(f);
+            }
+        }
+
+        function output(msg) {
+            var m = document.getElementById('messages');
+            m.innerHTML = msg;
+        }
+
+        function parseFile(file) {
+            var imageName = file.name;
+            var isGood = /\.(?=gif|jpg|png|jpeg)/gi.test(imageName);
+
+            if (isGood) {
+                document.getElementById('start').classList.add("hidden");
+                document.getElementById('response').classList.remove("hidden");
+                document.getElementById('notimage').classList.add("hidden");
+                document.getElementById('file-image').classList.remove("hidden");
+                document.getElementById('file-image').src = URL.createObjectURL(file);
+            } else {
+                document.getElementById('file-image').classList.add("hidden");
+                document.getElementById('notimage').classList.remove("hidden");
+                document.getElementById('start').classList.remove("hidden");
+                document.getElementById('response').classList.add("hidden");
+                document.getElementById("file-upload-form").reset();
+            }
+        }
+
+        function uploadFile(file) {
+            var xhr = new XMLHttpRequest();
+            var fileSizeLimit = 1024; // In MB
+            if (xhr.upload) {
+                if (file.size <= fileSizeLimit * 1024 * 1024) {
+                    xhr.onreadystatechange = function (e) {
+                        if (xhr.readyState == 4) {
+                            // Handle the response if needed
+                        }
+                    };
+
+                    xhr.open('POST', document.getElementById('file-upload-form').action, true);
+                    xhr.setRequestHeader('X-File-Name', file.name);
+                    xhr.setRequestHeader('X-File-Size', file.size);
+                    xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+                    xhr.send(file);
+                } else {
+                    output('Please upload a smaller file (< ' + fileSizeLimit + ' MB).');
+                }
+            }
+        }
+
+        if (window.File && window.FileList && window.FileReader) {
+            Init();
+        } else {
+            document.getElementById('file-drag').style.display = 'none';
+        }
+    }
+
+    ekUpload();
+</script>
+
+	<script>
+		
+
+	</script>
